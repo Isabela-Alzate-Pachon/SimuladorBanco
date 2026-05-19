@@ -83,4 +83,67 @@ namespace SimuladorBanco.UI
                     case "6":
                         Console.WriteLine("── Realizar depósito ──");
                         Console.Write("Cédula del cliente: ");
-                        string cedulaDep = C
+                        string cedulaDep = Console.ReadLine();
+                        Console.Write("Monto a depositar: ");
+                        double montoDep;
+                        while (!double.TryParse(Console.ReadLine(), out montoDep) || montoDep <= 0)
+                            Console.Write("Ingresa un monto válido: ");
+                        servicio.Depositar(cedulaDep, montoDep);
+                        break;
+
+                    case "7":
+                        Console.WriteLine("── Realizar retiro ──");
+                        Console.Write("Cédula del cliente: ");
+                        string cedulaRet = Console.ReadLine();
+                        Console.Write("Monto a retirar: ");
+                        double montoRet;
+                        while (!double.TryParse(Console.ReadLine(), out montoRet) || montoRet <= 0)
+                            Console.Write("Ingresa un monto válido: ");
+                        servicio.Retirar(cedulaRet, montoRet);
+                        break;
+
+                    case "8":
+                        Console.WriteLine("── Consultar saldo ──");
+                        Console.Write("Cédula del cliente: ");
+                        servicio.ConsultarSaldo(Console.ReadLine());
+                        break;
+
+                    case "9":
+                        Console.WriteLine("── Deshacer última transacción ──");
+                        servicio.DeshacerUltimaTransaccion();
+                        break;
+
+                    case "10":
+                        Console.WriteLine("── Cola de atención ──");
+                        servicio.MostrarCola();
+                        break;
+
+                    case "11":
+                        Console.WriteLine("── Total de clientes ──");
+                        Console.WriteLine($"Clientes registrados: {servicio.TotalClientes()}");
+                        break;
+
+                    case "12":
+                        Console.WriteLine("── Total de dinero del banco ──");
+                        Console.WriteLine($"Total en cuentas: ${servicio.TotalDineroBanco()}");
+                        break;
+
+                    case "13":
+                        salir = true;
+                        Console.WriteLine("Hasta luego!");
+                        break;
+
+                    default:
+                        Console.WriteLine("Opción no válida. Intenta de nuevo.");
+                        break;
+                }
+
+                if (!salir)
+                {
+                    Console.WriteLine("\nPresiona cualquier tecla para continuar...");
+                    Console.ReadKey();
+                }
+            }
+        }
+    }
+}
